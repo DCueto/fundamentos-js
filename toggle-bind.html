@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ToggleJS</title>
+</head>
+<body>
+	<button id="button">Off</button>
+	<script>
+		class Toggable{
+			constructor(el){
+				this.el = el;
+				this.el.innerHTML = 'Off'
+				this.activated = false;
+				this.onClick = this.onClick.bind(this);
+				this.el.addEventListener('click', this.onClick);
+			}
+			onClick(ev){
+				console.log('Esto es lo que tiene this en el evento onClick', this);
+				this.activated = !this.activated;
+				this.toggleText();
+			}
+
+			toggleText(){
+				this.el.innerHTML = this.activated ? 'On': 'Off';
+
+			}
+
+			imprimirElemento(){
+				console.log(this.el);
+			}
+		}
+
+		const button = document.getElementById('button');
+		const customButton = new Toggable(button);
+	</script>
+</body>
+</html>
