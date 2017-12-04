@@ -33,6 +33,17 @@
 
 		const button = document.getElementById('button');
 		const customButton = new Toggable(button);
+
+
+		// Uso del método .bind()
+
+		function saludar(nombre, apellido){
+			console.log(`Hola, ${nombre} ${apellido}`);
+		}
+
+		saludarDanis = saludar.bind(null, 'Dani');
+
+
 	</script>
 </body>
 </html>
