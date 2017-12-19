@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/DCueto/fundamentos-js#readme",
   "dependencies": {
+    "node-fetch": "^1.7.3",
     "xmlhttprequest": "^1.8.0"
   }
 }
