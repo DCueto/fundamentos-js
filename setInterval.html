@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setInterval</title>
+</head>
+<body>
+	<h1 id="timer">Han pasado 0 segundos</h1>
+	<button id="cancel-button">Cancel</button>
+	<script>
+		const timer = document.getElementById('timer');
+		let counter = 0;
+		const interval = setInterval(() =>{
+			counter++;
+			if (counter == 1){
+				timer.textContent = 'Ha pasado 1 segundo';
+			} else{
+				timer.textContent = `Han pasado ${counter} segundos`;
+			}
+			console.log('Ha pasado 1 segundo');
+		}, 1000);
+
+		const $cancelButton = document.getElementById('cancel-button');
+		$cancelButton.addEventListener('click', () => {
+			clearInterval(interval);
+		});
+	</script>
+</body>
+</html>

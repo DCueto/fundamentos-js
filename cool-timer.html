@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Cool-Timer</title>
+	<style>
+		body{
+			height: 100vh;
+		}
+		html{
+			background-color: #282828;
+		}
+		#timer{
+			display: flex;
+			font-size: 40px;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			font-family: Helvetica;
+			height: 100vh;
+		}
+
+		#time{
+			font-weight: 400;
+			color: white;
+			margin: 20px 0px;
+		}
+
+		.buttons{
+			font-size: 30px;
+			color: white;
+		}
+
+		.button{
+			font-weight: 300;
+			padding: 10px 30px;
+			border-radius: 20px;
+			color: white;
+			font-size: 18px;
+			border-style: none;
+		}
+
+		.button:hover{
+			opacity: .5;
+		}
+
+		#bIniciar{
+			background-color: Green;
+		}
+
+		#bPausa{
+			background-color: DarkRed;
+		}
+
+		#bReiniciar{
+			background-color: Black;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="timer">
+		<h1 id="time">00:00:00:0</h1>
+		<div id="buttons" class="buttons">
+			<button id="bIniciar" class="button">INICIAR</button>
+			<button id="bPausa" class="button">PAUSA</button>
+			<button id="bReiniciar" class="button">REINICIAR</button>
+		</div>
+	</div>
+	<script>
+		const $time = document.getElementById('time');
+		const bIniciar = document.getElementById('bIniciar');
+		const bPausa = document.getElementById('bPausa');
+		const bReiniciar = document.getElementById('bReiniciar');
+
+
+		class Timer{
+			constructor(){
+				this.init() //inicializa los atributos de Timer
+			}
+
+			init(){
+				console.clear();
+
+				this.iniciado = false;
+				this.timer = null;
+				this.ahora = 0;
+				this.momento = {
+					horas: 0,
+					minutos: 0,
+					segundos: 0,
+					decimas: 0
+				}
+				this.enPausa = false;
+
+				//bIniciar.classList.remove('oculto');
+				//bPausa.classList.add('oculto');
+				//bReiniciar.classList.add('deshab');
+			}
+
+			reset(){
+				clearInterval(this.timer);
+				this.init();
+				this.update();
+			}
+
+			start(){
+				//if false?
+				if(!this.iniciado){
+					this.timer = setInterval(()=>{
+						if(!this.enPausa){
+							this.ahora++;
+							bReiniciar.classList.remove('deshab');
+								this.momento.decimas++;
+								if(this.momento.decimas == 10){
+									this.momento.segundos++;
+									this.momento.decimas = 0;
+								}
+
+								if(this.momento.segundos == 60){
+									this.momento.minutos++;
+									this.momento.segundos = 0;
+								}
+
+								if(this.momento.minutos == 60){
+									this.momento.horas++;
+									this.momento.minutos = 0;
+								}
+
+								$time.textContent = `${this.momento.horas}:${this.momento.minutos}:${this.momento.segundos}:${this.momento.decimas}`;
+						}
+					}, 100);
+
+					this.iniciado = true;
+					}
+					this.enPausa = false;
+				}
+
+			pause(){
+				this.enPausa = true;
+				console.log(this.momento);
+			}
+
+			update(){
+
+				$time.textContent = `${this.momento.horas}:${this.momento.minutos}:${this.momento.segundos}:${this.momento.decimas}`;
+			}
+		}
+
+		const main = () =>{
+			const miTimer = new Timer();
+
+			bIniciar.addEventListener('click', miTimer.start.bind(miTimer));
+			bPausa.addEventListener('click', miTimer.pause.bind(miTimer));
+			bReiniciar.addEventListener('click', miTimer.reset.bind(miTimer));
+		}
+
+		main();
+
+	</script>
+</body>
+</html>

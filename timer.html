@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Timer</title>
+</head>
+<body>
+	<h1 id="timer">00:00:00.0</h1>
+	<div class="buttons">
+		<button id="play-button">|></button>
+		<button id="replay-button">[]</button>
+	</div>
+	<script>
+		const $timer = document.getElementById('timer');
+		const $playButton = document.getElementById('stop-button');
+		const $replayButton = document.getElementById('replay-button');
+
+		let miliseconds = 0;
+		let seconds = 0;
+		let minutes = 0;
+		let hours = 0;
+
+		const interval = setInterval(() => {
+			miliseconds++;
+			if(miliseconds == 100){
+				seconds++;
+				miliseconds = 0;
+			}
+
+			if(seconds == 60){
+				minutes++;
+				seconds = 0;
+			}
+
+			if(minutes == 60){
+				hours++;
+				minutes = 0;
+			}
+
+			$timer.textContent = `${hours}:${minutes}:${seconds}:${miliseconds}`;
+		}, 10);
+
+		const interval2 = {
+			interval: () => {
+				setInterval(() => {
+					miliseconds++;
+					if(miliseconds == 100){
+						seconds++;
+						miliseconds = 0;
+					}
+
+					if(seconds == 60){
+						minutes++;
+						seconds = 0;
+					}
+
+					if(minutes == 60){
+						hours++;
+						minutes = 0;
+					}
+
+					$timer.textContent = `${hours}:${minutes}:${seconds}:${miliseconds}`;
+				}, 10);
+			}
+		}
+
+		$playButton.addEventListener('click', ()=> {
+			miliseconds == 0 && seconds == 0 && minutes == 0 && hours == 0 ? interval : clearInterval(interval);
+		});
+
+		$replayButton.addEventListener('click', ()=> {
+			minutes = 0;
+			seconds = 0;
+			miliseconds = 0;
+			hours = 0;
+			$timer.textContent = `${hours}:${minutes}:${seconds}:${miliseconds}`;
+		});
+	</script>
+</body>
+</html>
