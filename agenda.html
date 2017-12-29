@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Agenda</title>
+</head>
+<body>
+	<h1 id="agenda">Estoy despertando</h1>
+	<script>
+		const DESPERTAR = 3000;
+		const DUCHA = 2000;
+		const VESTIRSE = 2000;
+		const DESAYUNAR = 3000;
+		const ESTUDIAR = 5000;
+
+		const $agenda = document.getElementById('agenda');
+
+
+		function despertar(){
+			return new Promise((resolve, reject)=>{
+				setTimeout(()=>{
+					resolve('Ahora me estoy duchando...');
+				}, DESPERTAR)
+			});
+		}
+
+		function ducha(message){
+			$agenda.textContent = message;
+			return new Promise((resolve, reject)=>{
+				setTimeout(()=>{
+					resolve('Me estoy vistiendo...')
+				}, DUCHA)
+			});
+		}
+
+		function vestirme(message){
+			$agenda.textContent = message;
+			return new Promise((resolve, reject)=>{
+				setTimeout(()=>{
+					reject('Quería desayunar, pero no hay comida');
+					//resolve('Ahora estoy desayunando...')
+				}, VESTIRSE)
+			});
+		}
+
+		function desayunar(message){
+			$agenda.textContent = message;
+			return new Promise((resolve, reject)=>{
+				setTimeout(()=>{
+					reject('Quería desayunar, pero no hay comida');
+					//resolve('Estoy estudiando');
+				}, DESAYUNAR)
+			});
+		}
+
+		function estudiar(message){
+			$agenda.textContent = message;
+			return new Promise((resolve, reject)=>{
+				setTimeout(()=>{
+					resolve('Ahora estoy desayunando...');
+				}, ESTUDIAR)
+			});
+		}
+
+		function error(message){
+			$agenda.style.color = 'red';
+			$agenda.textContent = message;
+		}
+
+		despertar()
+		.then(ducha)
+		.then(vestirme)
+		.then(desayunar)
+		.catch(error);
+
+	</script>
+</body>
+</html>

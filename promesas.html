@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Callbacks</title>
+</head>
+<body>
+	<h1 id="agenda">Estoy despertando</h1>
+	<script>
+
+		let validation = false;
+
+
+		const DESPERTAR = 3000;
+		const DUCHA = 2000;
+		const VESTIRSE = 2000;
+		const DESAYUNAR = 3000;
+		const ESTUDIAR = 5000;
+
+		const $agenda = document.getElementById('agenda');
+
+		// ESTO ES UNA PROMESA ASÍNCRONA
+		const despertar = new Promise((resolve, reject)=>{
+			setTimeout(()=>{
+				validation ? resolve(`ASYNC: Ahora me estoy duchando`) : reject('ASYNC: Todo mal, sorry');
+			}, DESPERTAR);
+		});
+
+		//Si todo está ok
+		despertar.then(()=>{
+			console.log('ASYNC: todo está ok');
+		});
+
+		//Si ha salido algo mal
+		despertar.catch(()=>{
+			console.log('ASYNC: algo salió mal');
+		});
+
+
+		// ESTO ES UNA PROMESA SÍNCRONA
+		const promesaSync = new Promise((resolve, reject) =>{
+			if(validation){
+				resolve('Promesa sincrona correcta');
+			} else{
+				reject('Promesa sincrona fallida');
+			}
+		});
+
+		promesaSync
+		.then(()=>{
+			console.log('Promesa sincrona exitosa');
+		})
+		.catch(()=>{
+			console.log('Promesa sincrona fallida');
+		});
+
+	</script>
+</body>
+</html>
